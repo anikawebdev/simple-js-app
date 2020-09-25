@@ -23,3 +23,23 @@ pokemonList = [
 ];
 
 console.log(pokemonList);
+
+// Iterate each pokemon list
+for (let i = 0; i < pokemonList.length; i++) {
+  document.write(`${pokemonList[i].name} (height: ${pokemonList[i].height})`);
+
+  if (pokemonList[i].height > 0.4) {
+    document.write(" This pokemon is tall.");
+  } else if (pokemonList[i].height < 0.4) {
+    document.write(" This pokemon is short.");
+  } else {
+    document.write(" This pokemon is just right.");
+  }
+
+  if (pokemonList[i].height >= 0.6) {
+    document.write(" This pokemon is the tallest one!");
+  }
+
+  document.write("<br>");
+  document.write("<br>");
+}
