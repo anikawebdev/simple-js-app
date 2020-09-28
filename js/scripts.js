@@ -1,48 +1,79 @@
-let pokemonList = [];
-console.log(pokemonList);
+// Wrap pokemonList in IIFE
+let pokemonRepository = (function () {
+  let pokemonList = [
+    { name: "Jigglypuff", height: 1.5, types: ["flying", "friend guard"] },
+    { name: "Pikachu", height: 0.4, types: ["electric", "lightning rod"] },
+    { name: "Shaymin", height: 0.2, types: ["ground"] },
+    {
+      name: "Clefairy",
+      height: 1.6,
+      types: ["speed", "magic guard", "friend guard"],
+    },
+    {
+      name: "Lillipup",
+      height: 0.4,
+      types: ["water", "pick up", "vital spirit"],
+    },
+    {
+      name: "Togepi",
+      height: 0.3,
+      types: ["fire", "hustle", "super luck"],
+    },
+  ];
 
-pokemonList = [
-  { name: "Jigglypuff", height: 0.5, types: ["cute charm", "friend guard"] },
-  { name: "Pikachu", height: 0.4, types: ["static", "lightning rod"] },
-  { name: "Shaymin", height: 0.2, types: ["natural cure"] },
-  {
-    name: "Clefairy",
-    height: 0.6,
-    types: ["cute charm", "magic guard", "friend guard"],
-  },
-  {
-    name: "Lillipup",
-    height: 0.4,
-    types: ["run away", "pick up", "vital spirit"],
-  },
-  {
-    name: "Togepi",
-    height: 0.3,
-    types: ["serene grace", "hustle", "super luck"],
-  },
-];
+  function add(pokemon) {
+    pokemonList.push(pokemon);
+  }
 
-console.log(pokemonList);
+  function getAll() {
+    return pokemonList;
+  }
 
-// Foreach loop
-pokemonList.forEach(function (pokemon) {
-  console.log(pokemon.name);
-  console.log(pokemon.height);
+  return {
+    add: add,
+    getAll: getAll,
+  };
+})();
 
-  document.write(`${pokemon.name} (height: ${pokemon.height})`);
+pokemonRepository.getAll().forEach(function (pokemon) {
+  let size;
 
-  if (pokemon.height > 0.4) {
-    document.write(" This pokemon is tall.");
-  } else if (pokemon.height < 0.4) {
-    document.write(" This pokemon is short.");
+  if (pokemon.height > 1.5) {
+    size = "Wow it's a big pokemon";
+  } else if (pokemon.height > 1 && pokemon.height <= 1.5) {
+    size = "This is a medium sized pokemon";
   } else {
-    document.write(" This pokemon is just right.");
+    size = "This is a small pokemon";
   }
 
-  if (pokemon.height >= 0.6) {
-    document.write(" This pokemon is the tallest one!");
+  let color;
+
+  if (pokemon.types.includes("water")) {
+    color = '<span style="color: blue;">';
+  } else if (pokemon.types.includes("ground")) {
+    color = '<span style="color: brown;">';
+  } else if (pokemon.types.includes("flying")) {
+    color = '<span style="color: lightblue;">';
+  } else if (pokemon.types.includes("electric")) {
+    color = '<span style="color: red;">';
+  } else if (pokemon.types.includes("speed")) {
+    color = '<span style="color: grey;">';
+  } else if (pokemon.types.includes("fire")) {
+    color = '<span style="color: orange;">';
   }
 
-  document.write("<br>");
-  document.write("<br>");
+  document.write(
+    '<div class="box">' +
+      pokemon.name +
+      " (height: " +
+      pokemon.height +
+      "m)" +
+      "<br>" +
+      size +
+      "<br>" +
+      color +
+      pokemon.types +
+      "<br>" +
+      "</div>"
+  );
 });
