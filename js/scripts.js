@@ -25,55 +25,34 @@ let pokemonRepository = (function () {
     pokemonList.push(pokemon);
   }
 
+  function addListItem(pokemon) {
+    let list = document.querySelector(".pokemon-list");
+    console.log(list);
+
+    let listItem = document.createElement("li");
+    console.log(listItem);
+
+    let button = document.createElement("button");
+    button.innerText = pokemon.name;
+    console.log(button.innerText);
+    button.classList.add("button");
+
+    listItem.appendChild(button);
+
+    list.appendChild(listItem);
+  }
+
   function getAll() {
     return pokemonList;
   }
 
   return {
     add: add,
+    addListItem: addListItem,
     getAll: getAll,
   };
 })();
 
 pokemonRepository.getAll().forEach(function (pokemon) {
-  let size;
-
-  if (pokemon.height > 1.5) {
-    size = "Wow it's a big pokemon";
-  } else if (pokemon.height > 1 && pokemon.height <= 1.5) {
-    size = "This is a medium sized pokemon";
-  } else {
-    size = "This is a small pokemon";
-  }
-
-  let color;
-
-  if (pokemon.types.includes("water")) {
-    color = '<span style="color: blue;">';
-  } else if (pokemon.types.includes("ground")) {
-    color = '<span style="color: brown;">';
-  } else if (pokemon.types.includes("flying")) {
-    color = '<span style="color: lightblue;">';
-  } else if (pokemon.types.includes("electric")) {
-    color = '<span style="color: red;">';
-  } else if (pokemon.types.includes("speed")) {
-    color = '<span style="color: grey;">';
-  } else if (pokemon.types.includes("fire")) {
-    color = '<span style="color: orange;">';
-  }
-
-  document.write(
-    '<div class="box">' +
-      pokemon.name +
-      " (height: " +
-      pokemon.height +
-      "m)" +
-      "<br>" +
-      size +
-      "<br>" +
-      color +
-      pokemon.types +
-      "<br>" +
-      "</div>"
-  );
+  pokemonRepository.addListItem(pokemon);
 });
