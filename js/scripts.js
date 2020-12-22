@@ -1,22 +1,11 @@
 // Wrap pokemonList in IIFE
 let pokemonRepository = (function () {
   let pokemonList = [];
-  // let apiURL = "https://pokeapi.co/api/v2/pokemon/?limit=150";
-  let apiURL = "https://pokeapi.co/api/v2/pokemon/";
-
-  function showLoadingMessage() {
-    console.log("Loading... Please wait...");
-    let paragraph = document.createElement("p");
-    paragraph.classList.add("loading-msg");
-    paragraph.innerText = "Loading... Please wait...";
-    document.body.appendChild(paragraph);
-  }
+  let apiURL = "https://pokeapi.co/api/v2/pokemon/?limit=150";
 
   function loadList() {
-    showLoadingMessage();
     return fetch(apiURL)
       .then(function (response) {
-        hideLoadingMessage();
         return response.json();
       })
       .then(function (json) {
@@ -30,19 +19,16 @@ let pokemonRepository = (function () {
         });
       })
       .catch(function (error) {
-        hideLoadingMessage();
         console.error(error);
       });
   }
 
   function loadDetails(pokemon) {
-    showLoadingMessage();
 
     let url = pokemon.url;
 
     return fetch(url)
       .then(function (response) {
-        hideLoadingMessage();
         return response.json();
       })
       .then(function (pokemonDetails) {
@@ -55,13 +41,8 @@ let pokemonRepository = (function () {
         });
       })
       .catch(function (error) {
-        hideLoadingMessage();
         console.error(error);
       });
-  }
-
-  function hideLoadingMessage() {
-    console.log("Done");
   }
 
   function add(pokemon) {
@@ -80,16 +61,12 @@ let pokemonRepository = (function () {
     button.classList.add("button");
     listItem.appendChild(button);
     document.body.appendChild(list);
-    // clickable(button, pokemon);
     button.addEventListener("click", function (event) {
       return showDetails(pokemon);
     });
   }
 
   function showDetails(pokemon) {
-    console.log("CLICK");
-    // console.log(pokemon.name);
-
     loadDetails(pokemon).then(function () {
       console.log(pokemon);
       showModal(pokemon);
